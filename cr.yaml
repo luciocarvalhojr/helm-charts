@@ -1,7 +1,6 @@
 # See https://github.com/helm/chart-testing#configuration
 -owner: luciocarvalhojr
 -repo: helm-charts
--pages-branch: gh-pages
 -pages-index-path: index.yaml
 -git-base-url: https://api.github.com/
 -git-upload-url: https://uploads.github.com/
