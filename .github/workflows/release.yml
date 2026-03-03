@@ -75,24 +75,6 @@ jobs:
         with:
           charts_dir: charts
           config: cr.yaml
+          skip_existing: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push charts to GHCR
-        run: |
-          shopt -s nullglob
-          for pkg in .cr-release-packages/*.tgz; do
-            if [ -z "${pkg:-}" ]; then
-              break
-            fi
-            chart_name=$(helm show chart "${pkg}" | grep "^name:" | awk '{print $2}')
-            registry=$(echo "ghcr.io/${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-            helm push "${pkg}" "oci://${registry}/${chart_name}"
-          done
