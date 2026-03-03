@@ -1,6 +1,7 @@
 # See https://github.com/helm/chart-testing#configuration
 remote: origin
 target-branch: main
+git-base-url: https://luciocarvalhojr.github.io/helm-charts
 chart-dirs:
   - charts
 chart-repos: []
