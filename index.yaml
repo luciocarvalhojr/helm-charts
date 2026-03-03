@@ -11,4 +11,15 @@ entries:
     urls:
     - https://github.com/luciocarvalhojr/helm-charts/releases/download/example-0.1.0/example-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-03T14:18:11.973620061Z"
+  go-api:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2026-03-03T14:34:43.427143392Z"
+    description: A Helm chart for Go-API
+    digest: da01263af3a61dc19cbc09a2dd18f31b8e0c3ad5441d54385c0b9b67dfb05829
+    name: go-api
+    type: application
+    urls:
+    - https://github.com/luciocarvalhojr/helm-charts/releases/download/go-api-0.1.1/go-api-0.1.1.tgz
+    version: 0.1.1
+generated: "2026-03-03T14:34:43.427149864Z"
