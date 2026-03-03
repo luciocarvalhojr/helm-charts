@@ -7,7 +7,10 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: write # to push chart release and create a release (helm/chart-releaser-action)
+  packages: write # needed for ghcr access
+  id-token: write # needed for keyless signing
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -68,3 +71,20 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push charts to GHCR
+        run: |
+          shopt -s nullglob
+          for pkg in .cr-release-packages/*.tgz; do
+            if [ -z "${pkg:-}" ]; then
+              break
+            fi
+            helm push "${pkg}" "oci://ghcr.io/${GITHUB_REPOSITORY_OWNER}/charts"
+          done
