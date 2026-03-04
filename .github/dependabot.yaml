@@ -1,0 +1,28 @@
+# helm-charts/.github/dependabot.yaml
+version: 2
+updates:
+  # ─── GitHub Actions ───────────────────────────────────────────────
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - dependencies
+      - github-actions
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # ─── Helm chart dependencies ──────────────────────────────────────
+  # Bumps subcharts declared in Chart.yaml dependencies
+  # e.g. if go-api chart depends on redis, postgresql, etc.
+  - package-ecosystem: helm
+    directory: /charts/go-api
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - dependencies
+      - helm
