@@ -27,6 +27,7 @@ data:
   OIDC_CLIENT_ID: {{ .Values.env.OIDC_CLIENT_ID | quote }}
   OIDC_REDIRECT_URL: {{ .Values.env.OIDC_REDIRECT_URL | quote }}
   OTLP_ENDPOINT: {{ .Values.env.OTLP_ENDPOINT | quote }}
+{{- if not .Values.externalSecret }}
 ---
 apiVersion: v1
 kind: Secret
@@ -38,3 +39,5 @@ type: Opaque
 stringData:
   JWT_SECRET: {{ .Values.secrets.JWT_SECRET | quote }}
   REDIS_URL: {{ .Values.secrets.REDIS_URL | quote }}
+  OIDC_CLIENT_SECRET: {{ .Values.secrets.OIDC_CLIENT_SECRET | quote }}
+{{- end }}

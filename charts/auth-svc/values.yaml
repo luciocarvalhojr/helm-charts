@@ -32,14 +32,17 @@ env:
   JWT_ACCESS_TTL: "15m"
   OIDC_ISSUER: ""            # set in environment values file
   OIDC_CLIENT_ID: ""         # set in environment values file
-  OIDC_CLIENT_SECRET: ""     # set in environment values file
   OIDC_REDIRECT_URL: ""      # set in environment values file
   OTLP_ENDPOINT: "http://jaeger-collector.observability:4318"
 
-# Secrets — use SealedSecret in production
+# Set to true to skip creating the Secret — use when a SealedSecret owns it
+externalSecret: false
+
+# Secrets — ignored when externalSecret: true
 secrets:
   JWT_SECRET: ""             # override via SealedSecret
   REDIS_URL: ""              # override via SealedSecret
+  OIDC_CLIENT_SECRET: ""     # override via SealedSecret
 
 podSecurityContext:
   runAsNonRoot: true
