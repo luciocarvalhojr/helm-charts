@@ -18,8 +18,27 @@ updates:
   # ─── Helm chart dependencies ──────────────────────────────────────
   # Bumps subcharts declared in Chart.yaml dependencies
   # e.g. if go-api chart depends on redis, postgresql, etc.
+  # NOTE: Dependabot does not support wildcards. Add a new entry for each chart.
   - package-ecosystem: helm
     directory: /charts/go-api
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - dependencies
+      - helm
+
+  - package-ecosystem: helm
+    directory: /charts/auth-svc
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - dependencies
+      - helm
+
+  - package-ecosystem: helm
+    directory: /charts/example
     schedule:
       interval: weekly
       day: monday
