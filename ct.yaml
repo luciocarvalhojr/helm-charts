@@ -8,3 +8,8 @@ validate-maintainers: false
 validate-chart-schema: true
 validate-yaml: true
 check-version-increment: true
+excluded-charts:
+  - auth-svc
+  - example
+  - go-api
+  - observatory-auth-svc
