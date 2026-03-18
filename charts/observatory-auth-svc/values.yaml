@@ -1,17 +1,14 @@
 replicaCount: 1
-
 image:
   repository: ghcr.io/luciocarvalhojr/observatory-auth-svc
   pullPolicy: IfNotPresent
-  tag: "1.5.0"                    # overridden by appVersion in Chart.yaml
-
+  tag: "1.5.3" # overridden by appVersion in Chart.yaml
+  digest: sha256:68f623046403587ceeca9fff898165e8835eccba900a5c01d5e0a5b5db5192d0
 service:
   type: ClusterIP
   port: 8081
-
 ingress:
-  enabled: false             # auth-svc is internal only — accessed via api-gateway
-
+  enabled: false # auth-svc is internal only — accessed via api-gateway
 resources:
   requests:
     cpu: 50m
@@ -19,50 +16,42 @@ resources:
   limits:
     cpu: 200m
     memory: 128Mi
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 70
-
 env:
   PORT: "8081"
   ENV: "production"
   JWT_ACCESS_TTL: "15m"
-  OIDC_ISSUER: ""            # set in environment values file
-  OIDC_CLIENT_ID: ""         # set in environment values file
-  OIDC_REDIRECT_URL: ""      # set in environment values file
+  OIDC_ISSUER: "" # set in environment values file
+  OIDC_CLIENT_ID: "" # set in environment values file
+  OIDC_REDIRECT_URL: "" # set in environment values file
   OTLP_ENDPOINT: "http://jaeger-collector.observability:4318"
-
 # Set to true to skip creating the Secret — use when a SealedSecret owns it
 externalSecret: false
-
 # Secrets — ignored when externalSecret: true
 secrets:
-  JWT_SECRET: ""             # override via SealedSecret
-  REDIS_URL: ""              # override via SealedSecret
-  OIDC_CLIENT_SECRET: ""     # override via SealedSecret
-
+  JWT_SECRET: "" # override via SealedSecret
+  REDIS_URL: "" # override via SealedSecret
+  OIDC_CLIENT_SECRET: "" # override via SealedSecret
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 65532
   seccompProfile:
     type: RuntimeDefault
-
 containerSecurityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
   capabilities:
     drop: [ALL]
-
 livenessProbe:
   httpGet:
     path: /healthz
     port: 8081
   initialDelaySeconds: 5
   periodSeconds: 10
-
 readinessProbe:
   httpGet:
     path: /readyz
