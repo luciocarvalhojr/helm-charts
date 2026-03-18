@@ -2,8 +2,8 @@ replicaCount: 1
 image:
   repository: ghcr.io/luciocarvalhojr/observatory-auth-svc
   pullPolicy: IfNotPresent
-  tag: "1.5.4" # overridden by appVersion in Chart.yaml
-  digest: sha256:7c87e57072604046051bedbcd8f27f4a5e722ac947ff1dfb18b1ca147020ffe8
+  tag: "1.6.0" # overridden by appVersion in Chart.yaml
+  digest: sha256:9bad66a1303f2aeab627334fee4c12868bdbc4572a2a68f842c8ca03178168dd
 service:
   type: ClusterIP
   port: 8081
